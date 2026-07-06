@@ -203,8 +203,7 @@ elif page == "Live Prediction":
         )
 
     st.markdown("---")
-    API_URL = "http://127.0.0.1:8000/predict"
-
+    API_URL = "https://credit-risk-loan-default-prediction-omsx.onrender.com/predict"
     if st.button("🚀 Predict Default Risk"):
         payload = {
             "loan_amnt": loan_amnt,
