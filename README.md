@@ -12,7 +12,7 @@
 
 ##  Live Demo
 
- **[Open RiskLens Dashboard](https://your-app.streamlit.app)**
+ **[Open RiskLens Dashboard](https://credit-risk-loan-default-prediction-nebvjbpncpzmhzwqhbdme4.streamlit.app/)**
 
 > **Note:** The prediction API is hosted on Render's free tier and may take 30–60 seconds to wake up on first use after inactivity. This is expected — not a bug.
 
