@@ -14,7 +14,7 @@
 
  **[Open RiskLens Dashboard](https://credit-risk-loan-default-prediction-nebvjbpncpzmhzwqhbdme4.streamlit.app/)**
 
-> **Note:** The prediction API is hosted on Render's free tier and may take 30–60 seconds to wake up on first use after inactivity. This is expected — not a bug.
+> **Note:** The prediction API is hosted on Render's free tier and may take 15–30 seconds to wake up on first use after inactivity. This is expected behavior for free-tier microservices — not a bug!
 
 ---
 
@@ -118,10 +118,11 @@ XGBoost was selected as the final model. Given the class imbalance (~20% default
 - Random Forest (captures non-linear interactions, gives feature importance)
 - XGBoost (best overall performance, industry standard for tabular data)
 
-### 6. Deployment
+### 6. Deployment (Microservices Architecture)
 - Final XGBoost model saved as .pkl via joblib
-- Served via FastAPI REST endpoint at /predict
-- Streamlit dashboard consumes the API for live predictions
+- Backend Machine Learning API deployed via FastAPI to Render
+- Frontend Web App deployed via Streamlit Community Cloud
+- The Streamlit frontend securely consumes the FastAPI backend for live predictions.
 
 ---
 
@@ -133,9 +134,9 @@ XGBoost was selected as the final model. Given the class imbalance (~20% default
 | Database | PostgreSQL, SQLAlchemy |
 | Machine learning | scikit-learn, XGBoost |
 | Visualization | matplotlib, seaborn |
-| API | FastAPI, uvicorn |
-| Dashboard | Streamlit |
-| Deployment | Render (API), Streamlit Cloud (dashboard) |
+| Backend API | FastAPI, uvicorn |
+| Frontend Dashboard | Streamlit |
+| Deployment | Render (API), Streamlit Cloud (Frontend) |
 
 ---
 
@@ -168,13 +169,10 @@ cd credit-risk-loan-default-prediction
 # 2. Install dependencies
 pip install -r requirements.txt
 
-# 3. Set database password (Windows)
-setx DB_PASSWORD "your_postgres_password"
-
-# 4. Start the API (Terminal 1)
+# 3. Start the FastAPI Backend (Terminal 1)
 uvicorn creditrisk_api:app --reload
 
-# 5. Start the dashboard (Terminal 2)
+# 4. Start the Streamlit Frontend (Terminal 2)
 streamlit run creditrisk_dashboardapp.py
 ```
 
@@ -185,7 +183,7 @@ streamlit run creditrisk_dashboardapp.py
 - Loan amount capped at $40,000 and term restricted to 36/60 months — real Lending Club product constraints
 - Dataset is a 100,000-row sample chosen to fit local hardware constraints (8GB RAM)
 - Precision on the default class is moderate (~0.35) — the model prioritizes catching more true defaults (recall ~0.62)
-- The API on Render free tier sleeps after inactivity — first prediction may take 30 to 60 seconds
+- The backend API on Render free tier sleeps after inactivity — first prediction may take up to 30 seconds.
 
 ---
 
